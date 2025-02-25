@@ -156,28 +156,71 @@ for (var a = 0; a < arr.length; a++) {
 //Sort the array in descending order. Show result in console.
 
 var arr=[5,9,4,5,3,12,5,16,7,2]
+for (var i = 0; i < arr.length; i++) {
+  for (var j = i + 1; j < arr.length; j++) {
+    if (arr[i] < arr[j]) {
+      var temp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = temp;
+    }
+  }
+}
+console.log(arr);
+//Sort the array in ascending order. Show result in console.
+var arr=[5,9,4,5,3,12,5,16,7,2]
+for (var i = 0; i < arr.length; i++) {
+  for (var j = i + 1; j < arr.length; j++) {
+    if (arr[i] > arr[j]) {
+      var temp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = temp;
+    }
+  }
+}
+console.log(arr);
+//You have array. Inside this array you can have positive and negative numbers
+// . Count a sum of positive numbers. Show result in console.
+var arr=[2,3,4,-2,-12];
+var sum=0;
+for (var i=0;i<arr.length;i++){
+    if (arr[i]>0){
+        sum+=arr[i];
+    }
+}
+console.log(sum);
 
+//You have array `[1, 2, 5, 9, 4, 13, 4, 10]`. Using loop `for` and operator `if`
+// , check do we have in array element with value 4. If we have, print to console "
+// Exist!" and stop loop execution. If no, don't need to print nothing.
+var arr=[1, 2, 5, 9, 4, 13, 10]
+for (var i=0;i<arr.length;i++){
+    if (arr[i]===4){
+        console.log("Exist!")
+        break
+    }
+}
+//You have array `[2, 5, 9, 15, 0, 4]`. Using loop `for` and operator `if`, show in console, 
+// elements which great than 3, but less than 10.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+var arr=[2, 5, 9, 15, 0, 4];
+var a=[];
+for (var i=0;i<arr.length;i++){
+    if (arr[i]>3 && arr[i]<10){
+        a.push(arr[i])
+    }
+}
+console.log(a)
+//You have number `n=1000`. Divide it by 2 as many times as long as the result of the d
+// ivision is greater than 50. What is the number? Count the number of iterations requir
+// ed for this (iteration is a loop pass), and write it to the variable `num`. Show the
+//  result to console.
+var n=1000;
+var num=0;
+while (n/2>50){
+    n/=2
+    num++;
+}
+console.log(n,num)
 
 
 
