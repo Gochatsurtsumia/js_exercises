@@ -408,7 +408,7 @@ function rgbToHex(rgbColor) {
 export { rgbToHex };
 //45
 function timeAgo(date1, date2) {
-    const differenceInMillis = Math.abs(date2 - date1); // Get the absolute difference in milliseconds
+    const differenceInMillis = Math.abs(date2 - date1);
 
     const seconds = Math.floor(differenceInMillis / 1000);
     const minutes = Math.floor(seconds / 60);
@@ -435,4 +435,121 @@ function timeAgo(date1, date2) {
 export { timeAgo };
 
 //46
+function customArraySort(users, currentUserId) {
+    let currentUser = null;
+    const groups = {
+        between35And50: [],
+        under18: [],
+        over50: [],
+        between18And35: []
+    };
 
+    // Single pass to classify users
+    for (const user of users) {
+        if (user.id === currentUserId) {
+            currentUser = user;
+        } else if (user.age >= 35 && user.age < 50) {
+            groups.between35And50.push(user);
+        } else if (user.age < 18) {
+            groups.under18.push(user);
+        } else if (user.age >= 50) {
+            groups.over50.push(user);
+        } else {
+            groups.between18And35.push(user);
+        }
+    }
+
+    // Sorting each group in descending order by age
+    for (const key in groups) {
+        groups[key].sort((a, b) => b.age - a.age);
+    }
+
+    // Concatenating in the required order with the current user at the beginning
+    return [
+        ...(currentUser ? [currentUser] : []), // Add current user if found
+        ...groups.between35And50,
+        ...groups.under18,
+        ...groups.over50,
+        ...groups.between18And35
+    ];
+}
+
+export { customArraySort };
+
+
+//47
+function moveItems(numbers, moveInstructions) {
+    for (let {fromIndex, toIndex} of moveInstructions){
+        if (fromIndex!==toIndex){
+            let [removedelement]=numbers.splice(fromIndex,1)
+            numbers.splice(toIndex,0,removedelement)
+        }
+    }return numbers
+}
+
+export { moveItems };
+//48
+function isValidPassword(password) {
+    return /[A-Z].*[A-Z].*[A-Z]/.test(password) && /[0-9]/.test(password) && /[?_!*]/.test(password)
+    
+}
+
+export { isValidPassword };
+//49
+function mergeSortedArrays(numbers1, numbers2) {
+    return [...numbers1,...numbers2].sort((a,b) => a-b)
+    
+}
+
+export { mergeSortedArrays };
+//50
+function ascendingSplit(numbers) {
+    if (numbers.length===0) return [];
+    let result=[]
+    let subarray=[numbers[0]]
+    for (let i=1;i<numbers.length;i++){
+        if (numbers[i]>=numbers[i-1]){
+            subarray.push(numbers[i])
+        }else{
+            result.push(subarray)
+            subarray=[numbers[i]]
+        }
+    }
+    result.push(subarray)
+    return result
+
+}
+
+export { ascendingSplit };
+//51
+function findUniqueNumber(numbers) {
+    return numbers.reduce((result, num) => result ^ num, 0);
+  }
+  
+  export { findUniqueNumber };
+//52
+function parseQueryParams(url) {
+    return new Map(new URLSearchParams(url.split('?')[1]));
+  }
+  
+  export { parseQueryParams };
+//53
+function simpleCompression(text) {
+    if (text.length===0) return '';
+    let result='';
+    let substring=text[0];
+    for (let i=1;i<text.length;i++){
+        if (text[i]===text[i-1]){
+            substring+=text[i]
+        }else{
+                result += substring[0] + (substring.length >1 ? substring.length:'')
+                substring=text[i]
+        }
+    }
+    result+=substring[0] +(substring.length >1 ?substring.length:'' )
+    return result
+}
+
+export { simpleCompression };
+
+//54
