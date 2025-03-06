@@ -553,3 +553,73 @@ function simpleCompression(text) {
 export { simpleCompression };
 
 //54
+function partitionArray(numbers, predicateCallback) {
+    return numbers.reduce((result,num) => {
+        result[predicateCallback(num)?'pass':'fail'].push(num);
+        return result;
+    },{pass:[],fail:[]}   )
+}
+
+export { partitionArray };
+//55
+function findFreeCalendarSpots(meetings) {
+    const WORK_START = 9 * 60; // 9:00 in minutes
+    const WORK_END = 17 * 60;  // 17:00 in minutes
+
+    // Convert meetings to minutes and sort by start time
+    let bookedTimes = meetings
+        .map(({ startTime, duration }) => ({
+            start: startTime.hours * 60 + startTime.minutes,
+            end: startTime.hours * 60 + startTime.minutes + duration
+        }))
+        .sort((a, b) => a.start - b.start);
+
+    let freeSlots = [];
+    let lastEnd = WORK_START;
+
+    for (const { start, end } of bookedTimes) {
+        if (start > lastEnd) {
+            freeSlots.push({
+                startTime: { hours: Math.floor(lastEnd / 60), minutes: lastEnd % 60 },
+                duration: start - lastEnd
+            });
+        }
+        lastEnd = Math.max(lastEnd, end);
+    }
+
+    // Add final free slot if time remains after last meeting
+    if (lastEnd < WORK_END) {
+        freeSlots.push({
+            startTime: { hours: Math.floor(lastEnd / 60), minutes: lastEnd % 60 },
+            duration: WORK_END - lastEnd
+        });
+    }
+
+    return freeSlots;
+}
+
+export { findFreeCalendarSpots };
+//chagtp
+//56
+function mergeIntervals(intervals, newIntervals) {
+    let result = [...intervals, ...newIntervals];
+    result.sort((a, b) => a.from - b.from);
+    
+    let merged = [];
+
+    for (let i = 0; i < result.length; i++) {
+        if (merged.length === 0 || merged[merged.length - 1].to < result[i].from) {
+            merged.push(result[i]);
+        } else {
+            merged[merged.length - 1].to = Math.max(merged[merged.length - 1].to, result[i].to);
+            merged[merged.length - 1].numbers = [
+                ...merged[merged.length - 1].numbers,
+                ...result[i].numbers.filter(num => !merged[merged.length - 1].numbers.includes(num))
+            ];
+        }
+    }
+
+    return merged;
+}
+
+export { mergeIntervals };
