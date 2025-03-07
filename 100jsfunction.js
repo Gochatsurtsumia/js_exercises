@@ -623,3 +623,191 @@ function mergeIntervals(intervals, newIntervals) {
 }
 
 export { mergeIntervals };
+//58
+function simpleURLParser(route, url) {
+    const routeParts = route.split('/');
+    const urlParts = url.split('/');
+
+    if (routeParts.length !== urlParts.length) return false;
+
+    const isValid = (part, urlPart) => part.startsWith(':') ? /^[a-zA-Z0-9-]+$/.test(urlPart) : part === urlPart;
+
+    return routeParts.every((part, i) => isValid(part, urlParts[i]));
+}
+
+export { simpleURLParser };
+//60
+async function fetchNamesOfAllPublicRepos(username) {
+    const url = `https://api.github.com/users/${username}/repos?per_page=100`; 
+    let repos = [];
+    let nextUrl = url;
+  
+    try {
+      while (nextUrl) {
+        const response = await fetch(nextUrl);
+        if (!response.ok) {
+          return [];
+        }
+  
+        const pageRepos = await response.json();
+        repos = repos.concat(pageRepos.map(repo => repo.name)); 
+        const linkHeader = response.headers.get('Link');
+        if (linkHeader && linkHeader.includes('rel="next"')) {
+          const nextPageMatch = linkHeader.match(/<([^>]+)>; rel="next"/);
+          nextUrl = nextPageMatch ? nextPageMatch[1] : null;
+        } else {
+          nextUrl = null;
+        }
+      }
+      return repos;  // Return the accumulated list of repository names
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return [];  // Return an empty array in case of any errors
+    }
+  }
+  export { fetchNamesOfAllPublicRepos };
+//61
+function getPaginatedData(users, sortBy, direction, perPage, pageNumber) {
+    const sortedUsers = [...users].sort((a, b) => {
+      if (direction === "asc") {
+        return a[sortBy] < b[sortBy] ? -1 : a[sortBy] > b[sortBy] ? 1 : 0;
+      } else {
+        return a[sortBy] > b[sortBy] ? -1 : a[sortBy] < b[sortBy] ? 1 : 0;
+      }
+    });
+    const startIndex = (pageNumber - 1) * perPage;
+    const endIndex = startIndex + perPage;
+    return sortedUsers.slice(startIndex, endIndex);
+  }
+  export { getPaginatedData };
+//62
+function getCheckPassword(originalPassword) {
+    return function(inputPassword) {
+      return inputPassword === originalPassword ? "true" : "false";
+    };
+  }
+  
+  export { getCheckPassword };
+//63
+function getAdd5() {
+    return function add5(number){
+        return number +5
+    }
+}
+
+export { getAdd5 };
+//64
+function getAddN(N) {
+    return function addN(number) {
+      return number + N;
+    };
+  }
+  
+  export { getAddN };
+//65
+async function fetchClosedPullRequests(username, repo) {
+    let page = 1;
+    let pullRequestIds = [];
+    let hasMore = true;
+    
+    while (hasMore) {
+      const url = `https://api.github.com/repos/${username}/${repo}/pulls?state=closed&page=${page}`;
+  
+      try {
+        const response = await fetch(url);
+  
+        if (!response.ok) {
+          return [];
+        }  
+        const pullRequests = await response.json();
+        pullRequests.forEach(pr => pullRequestIds.push(pr.id)); 
+        if (pullRequests.length < 30) {
+          hasMore = false;
+        } else {
+          page++;
+        }
+      } catch (error) {
+        return [];
+      }
+    }
+  
+    return pullRequestIds;
+  }
+  
+  export { fetchClosedPullRequests };  
+//66
+async function fetchBranchNames(username, repo) {
+    let page = 1;
+    let branchNames = []; 
+    let hasMore = true; 
+  
+    while (hasMore) {
+      const url = `https://api.github.com/repos/${username}/${repo}/branches?page=${page}`;
+  
+      try {
+        const response = await fetch(url);
+  
+        if (!response.ok) {
+          return [];
+        }  
+        const branches = await response.json();
+        branches.forEach(branch => branchNames.push(branch.name)); 
+  
+        if (branches.length < 30) {
+          hasMore = false;
+        } else {
+          page++;
+        }
+      } catch (error) {
+        return [];
+      }
+    }
+  
+    return branchNames;
+  }
+  export { fetchBranchNames };
+//67
+function searchMessages(messages, searchTerm) {
+    const searchWords = searchTerm.toLowerCase().split(/\s+/);
+    
+    const filteredMessages = messages.filter(message => {
+      const body = message.body.toLowerCase();
+      return searchWords.some(word => body.includes(word));
+    });
+  
+    filteredMessages.sort((a, b) => {
+      const matchCountA = searchWords.reduce((acc, word) => acc + (a.body.toLowerCase().includes(word) ? word.length : 0), 0);
+      const matchCountB = searchWords.reduce((acc, word) => acc + (b.body.toLowerCase().includes(word) ? word.length : 0), 0);
+  
+      if (matchCountB !== matchCountA) {
+        return matchCountB - matchCountA;
+      }
+  
+      return b.sentAt - a.sentAt;
+    });
+  
+    return filteredMessages;
+  }
+
+export { searchMessages };
+//90
+class TodoList {
+    constructor(){
+        this.todo=new Map();
+    }
+    add(id,task) {
+        this.todo.set(id, { id, task,done:false});
+    }
+    getItem(id){
+        return this.todo.get(id)
+    }markAsDone(id) {
+        this.todo.get(id).done=true
+    }
+    remove(id){
+        this.todo.delete(id)
+    }
+    getAll(){
+        return Array.from(this.todo.values())
+    }
+    
+}
