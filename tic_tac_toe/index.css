@@ -1,0 +1,17 @@
+.kubiki{
+    width: 75px;
+    height: 75px;
+    border: 2px solid black;
+}
+.container{
+    display: grid;
+    grid-template-columns:repeat(3,auto) ;
+    width: 225px;
+    margin: auto;
+}
+.game{
+    text-align: center;
+}
+.restart{
+    margin-top: 20px;
+}
