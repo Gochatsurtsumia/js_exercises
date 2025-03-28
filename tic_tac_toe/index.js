@@ -1,70 +1,79 @@
-const statustext = document.querySelector(".mogebatuwageba");
-const kubiks = document.querySelectorAll(".kubiki");
-const restartbutton = document.querySelector(".restart");
-
-const mogebisvariangtebi = [
-    [0, 1, 2], [3, 4, 5], [6, 7, 8],
-    [0, 3, 6], [1, 4, 7], [2, 5, 8],
-    [0, 4, 8], [2, 4, 6]
-];
-
-let options = ["", "", "", "", "", "", "", "", ""];
-let motamashe = "X";
-let tamashismimdinareoba = false;
-
-tamashischartva();
-
-function tamashischartva() {
-    kubiks.forEach(kubiki => kubiki.addEventListener("click", daklikebakubikze));
-    restartbutton.addEventListener("click", darestarteba);
-    statustext.textContent = `${motamashe}-is jeria`;
-    tamashismimdinareoba = true;
-}
-
-function daklikebakubikze() {
-    const kubikis_indeqsi = this.getAttribute("attribute");
-    if (options[kubikis_indeqsi] !== "" || !tamashismimdinareoba) {
-        return;
+class TicTacToe {
+    constructor() {
+        this.statustext = document.querySelector(".mogebatuwageba");
+        this.kubiks = document.querySelectorAll(".kubiki");
+        this.restartbutton = document.querySelector(".restart");
+        this.mogebisvariangtebi = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
+        ];
+        this.options = Array(9).fill("");
+        this.motamashe = "X";
+        this.tamashismimdinareoba = false;
+        this.initGame();
     }
-    kubikisupdate(this, kubikis_indeqsi);
-    mogebisshemowmeba();
-}
 
-function kubikisupdate(kubiki, index) {
-    options[index] = motamashe;
-    kubiki.textContent = motamashe;
-}
+    // Initialize the game
+    initGame() {
+        this.kubiks.forEach(kubiki => kubiki.addEventListener("click", (e) => this.handleClick(e)));
+        this.restartbutton.addEventListener("click", () => this.resetGame());
+        this.statustext.textContent = `${this.motamashe}-is jeria`;
+        this.tamashismimdinareoba = true;
+    }
 
-function shecvla() {
-    motamashe = motamashe === "X" ? "O" : "X"; // Fixed switching logic
-    statustext.textContent = `${motamashe}-is jeria`;
-}
+    // Handle cell click
+    handleClick(event) {
+        const kubikis_indeqsi = event.target.getAttribute("attribute");
+        if (this.options[kubikis_indeqsi] !== "" || !this.tamashismimdinareoba) {
+            return;
+        }
+        this.updateKubiki(event.target, kubikis_indeqsi);
+        this.checkWinner();
+    }
 
-function darestarteba() {
-    motamashe = "X";
-    options = ["", "", "", "", "", "", "", "", ""];
-    statustext.textContent = `${motamashe}-is jeria`;
-    kubiks.forEach(kubiki => kubiki.textContent = "");
-    tamashismimdinareoba = true;
-}
+    // Update board with current player's symbol
+    updateKubiki(kubiki, index) {
+        this.options[index] = this.motamashe;
+        kubiki.textContent = this.motamashe;
+    }
 
-function mogebisshemowmeba() {
-    let mogeba = false;
-    for (let i = 0; i < mogebisvariangtebi.length; i++) {
-        const [a, b, c] = mogebisvariangtebi[i];
-            if (options[a] && options[a] === options[b] && options[a] === options[c]) {
-            mogeba = true;
-            break;
+    // Switch player turn
+    switchPlayer() {
+        this.motamashe = this.motamashe === "X" ? "O" : "X";
+        this.statustext.textContent = `${this.motamashe}-is jeria`;
+    }
+
+    // Check for a winner
+    checkWinner() {
+        let mogeba = false;
+        for (let [a, b, c] of this.mogebisvariangtebi) {
+            if (this.options[a] && this.options[a] === this.options[b] && this.options[a] === this.options[c]) {
+                mogeba = true;
+                break;
+            }
+        }
+
+        if (mogeba) {
+            this.statustext.textContent = `${this.motamashe}-m moigo!`;
+            this.tamashismimdinareoba = false;
+        } else if (!this.options.includes("")) {
+            this.statustext.textContent = "nichia";
+            this.tamashismimdinareoba = false;
+        } else {
+            this.switchPlayer();
         }
     }
 
-    if (mogeba) {
-        statustext.textContent = `${motamashe}-m moigo`;
-        tamashismimdinareoba = false;
-    } else if (!options.includes("")) {
-        statustext.textContent = "nichia";
-        tamashismimdinareoba = false;
-    } else {
-        shecvla();
+    // Reset game
+    resetGame() {
+        this.motamashe = "X";
+        this.options.fill("");
+        this.statustext.textContent = `${this.motamashe}-is jeria`;
+        this.kubiks.forEach(kubiki => kubiki.textContent = "");
+        this.tamashismimdinareoba = true;
     }
 }
+
+// Start the game
+const ticTacToe = new TicTacToe();

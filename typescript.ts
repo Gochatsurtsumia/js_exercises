@@ -24,3 +24,28 @@ type ComputedReturns<C> = {
       methods: M
     } & ThisType<D & ComputedReturns<C> & M>
   ): any
+//7
+type MyReadonly<T> = {
+  readonly [P in keyof T]: T[P];
+};
+//8
+type MyReadonly2<T, K extends keyof T = keyof T> = 
+  Readonly<Pick<T, K>> & 
+  Omit<T, K>
+  //9
+type DeepReadonly<T> = {
+    readonly [K in keyof T]: T[K] extends Function ? T[K]: T[K] extends object ? DeepReadonly<T[K]> : T[K]
+  }
+//10
+type TupleToUnion<T extends readonly any[]> = T[number];
+//11
+type TupleToObject<T extends readonly (string | number | symbol)[]> = {
+  [P in T[number]]: P;
+};
+//14
+type First<T extends any[]> = T extends []?never : T[0]
+
+//18
+type TupleLength<T extends readonly any[]> = T['length'];
+//43
+type MyExclude<T, U> = T extends U ? never : T;
