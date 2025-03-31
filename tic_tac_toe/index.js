@@ -1,5 +1,5 @@
-class TicTacToe {
-    constructor() {
+var TicTacToe = /** @class */ (function () {
+    function TicTacToe() {
         this.statustext = document.querySelector(".mogebatuwageba");
         this.kubiks = document.querySelectorAll(".kubiki");
         this.restartbutton = document.querySelector(".restart");
@@ -13,67 +13,58 @@ class TicTacToe {
         this.tamashismimdinareoba = false;
         this.initGame();
     }
-
-    // Initialize the game
-    initGame() {
-        this.kubiks.forEach(kubiki => kubiki.addEventListener("click", (e) => this.handleClick(e)));
-        this.restartbutton.addEventListener("click", () => this.resetGame());
-        this.statustext.textContent = `${this.motamashe}-is jeria`;
+    TicTacToe.prototype.initGame = function () {
+        var _this = this;
+        this.kubiks.forEach(function (kubiki) { return kubiki.addEventListener("click", function (e) { return _this.handleClick(e); }); });
+        this.restartbutton.addEventListener("click", function () { return _this.resetGame(); });
+        this.statustext.textContent = "".concat(this.motamashe, "-is jeria");
         this.tamashismimdinareoba = true;
-    }
-
-    // Handle cell click
-    handleClick(event) {
-        const kubikis_indeqsi = event.target.getAttribute("attribute");
+    };
+    TicTacToe.prototype.handleClick = function (event) {
+        var target = event.target;
+        var kubikis_indeqsi = Number(target.getAttribute("attribute"));
         if (this.options[kubikis_indeqsi] !== "" || !this.tamashismimdinareoba) {
             return;
         }
-        this.updateKubiki(event.target, kubikis_indeqsi);
+        this.updateKubiki(target, kubikis_indeqsi);
         this.checkWinner();
-    }
-
-    // Update board with current player's symbol
-    updateKubiki(kubiki, index) {
+    };
+    TicTacToe.prototype.updateKubiki = function (kubiki, index) {
         this.options[index] = this.motamashe;
         kubiki.textContent = this.motamashe;
-    }
-
-    // Switch player turn
-    switchPlayer() {
+    };
+    TicTacToe.prototype.switchPlayer = function () {
         this.motamashe = this.motamashe === "X" ? "O" : "X";
-        this.statustext.textContent = `${this.motamashe}-is jeria`;
-    }
-
-    // Check for a winner
-    checkWinner() {
-        let mogeba = false;
-        for (let [a, b, c] of this.mogebisvariangtebi) {
+        this.statustext.textContent = "".concat(this.motamashe, "-is jeria");
+    };
+    TicTacToe.prototype.checkWinner = function () {
+        var mogeba = false;
+        for (var _i = 0, _a = this.mogebisvariangtebi; _i < _a.length; _i++) {
+            var _b = _a[_i], a = _b[0], b = _b[1], c = _b[2];
             if (this.options[a] && this.options[a] === this.options[b] && this.options[a] === this.options[c]) {
                 mogeba = true;
                 break;
             }
         }
-
         if (mogeba) {
-            this.statustext.textContent = `${this.motamashe}-m moigo!`;
+            this.statustext.textContent = "".concat(this.motamashe, "-m moigo!");
             this.tamashismimdinareoba = false;
-        } else if (!this.options.includes("")) {
+        }
+        else if (!this.options.includes("")) {
             this.statustext.textContent = "nichia";
             this.tamashismimdinareoba = false;
-        } else {
+        }
+        else {
             this.switchPlayer();
         }
-    }
-
-    // Reset game
-    resetGame() {
+    };
+    TicTacToe.prototype.resetGame = function () {
         this.motamashe = "X";
         this.options.fill("");
-        this.statustext.textContent = `${this.motamashe}-is jeria`;
-        this.kubiks.forEach(kubiki => kubiki.textContent = "");
+        this.statustext.textContent = "".concat(this.motamashe, "-is jeria");
+        this.kubiks.forEach(function (kubiki) { return (kubiki.textContent = ""); });
         this.tamashismimdinareoba = true;
-    }
-}
-
-// Start the game
-const ticTacToe = new TicTacToe();
+    };
+    return TicTacToe;
+}());
+var ticTacToe = new TicTacToe();

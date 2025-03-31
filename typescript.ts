@@ -49,3 +49,32 @@ type First<T extends any[]> = T extends []?never : T[0]
 type TupleLength<T extends readonly any[]> = T['length'];
 //43
 type MyExclude<T, U> = T extends U ? never : T;
+//189
+type MyAwaited<T> = T extends PromiseLike<infer U> ? MyAwaited<U> : T;
+//268
+type If<C extends boolean, T, F> = C extends true? T:F
+//533
+type Concat<T extends unknown[], U extends unknown[]> = [...T,...U]
+//898
+type Equal<A, B> = 
+  (<T>() => T extends A ? 1 : 2) extends (<T>() => T extends B ? 1 : 2) 
+    ? true 
+    : false;
+
+type Includes<T extends readonly any[], U> = 
+  T extends [infer First, ...infer Rest]
+    ? Equal<First, U> extends true
+      ? true
+      : Includes<Rest, U>
+    : false;
+  //3057
+  type Push<T extends any[], U> = [...T,U]
+//3060
+type Unshift<T extends any[], U> = [U,...T]
+//3312
+type MyParameters<T extends (...args: any) => any> = 
+  T extends (...args: infer P) => any 
+    ? P 
+    : never;
+//
+
