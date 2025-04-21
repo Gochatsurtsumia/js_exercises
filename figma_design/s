@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="container">
+        <img src="/figma_design/imgs/Property 1=Default.png" alt="" />
+        <div class="link-list">
+          <ul>
+            <li><a href="aboutus">About Us</a></li>
+            <li><a href="services">Services</a></li>
+            <li><a href="usecases">Use Cases</a></li>
+            <li><a href="pricing">Pricing</a></li>
+            <li><a href="blog">Blog</a></li>
+            <li>
+              <button id="request-button">
+                <a href="requestquote">Request a quote</a>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+    <section class="main-section"></section>
+      <section class="header-text">
+        <h1>Navigating the digital landscape for success</h1>
+        <p>
+          Our digital marketing agency helps businesses grow and succeed online
+          through a range of services including SEO, PPC, social media
+          marketing, and content creation
+        </p>
+        <button>Book a consultation</button>
+      </section>
+      <section class="photo">
+        <img src="/figma_design/imgs/Illustration.png" alt="" />
+      </section>
+      <section class="logos">
+        <img src="/figma_design/imgs/Company logo.png" alt="amazon-photo">
+        <img src="/figma_design/imgs/Company logo (1).png" alt="">
+        <img src="/figma_design/imgs/Company logo (2).png" alt="">
+        <img src="/figma_design/imgs/Company logo (3).png" alt="">
+        <img src="/figma_design/imgs/Company logo (4).png" alt="">
+        <img src="/figma_design/imgs/Company logo (5).png" alt="">
+      </section>
+    </main>
+  </body>
+</html>
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header {
+  width: 1444px;
+  margin: 0 auto;
+  padding-bottom: 70px;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 68px;
+  padding: 0 100px;
+  justify-content: space-between;
+}
+
+.link-list ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+
+.link-list ul li a {
+  font-style: Space;
+  text-decoration: none;
+  color: inherit;
+  font-weight: 500px;
+  font-size: 21px;
+}
+
+.link-list ul li button {
+  padding: 16px;
+  border-radius: 10px;
+  background-color: inherit;
+}
+
+main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 1444px;
+  height: 515px;
+  margin: 0 auto;
+  padding: 0 100px;
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+  width: 531px;
+  height: 481px;
+  gap: 35px;
+}
+
+.header-text h1 {
+  font-size: 61px;
+  font-weight: 500;
+  width: 531px;
+  height: 211px;
+}
+
+.header-text p {
+  font-size: 23px;
+  font-weight: 400;
+  width: 498px;
+  height: 112px;
+}
+
+.header-text button {
+  width: 264px;
+  height: 68px;
+  border-radius: 14px;
+  padding: 20px 35px;
+  background-color: black;
+  color: white;
+}

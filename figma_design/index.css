@@ -1,0 +1,92 @@
+* {
+  padding: 5px 15px;
+  box-sizing: border-box;
+}
+.header-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+.nav-list li a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 500px;
+  font-size: 19px;
+}
+#request-button {
+  border-radius: 5px;
+  padding: 8px;
+  background-color: inherit;
+}
+.consultation-wrapper {
+  display: flex;
+}
+.consultation-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.consultation-text h1 {
+  font-size: 60px;
+  height: 80px;
+}
+.consultation-text p {
+  font-size: 30px;
+  height: 120px;
+}
+.consultation-text button {
+  background-color: black;
+  color: white;
+  font-style: italic;
+  padding: 20px;
+  border-radius: 15px;
+  margin-left: 15px;
+  font-size: 15px;
+}
+
+.company-logos {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2rem;
+}
+.page-container {
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+.service-text{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.service-text h1{
+    background-color: rgba(160, 255, 65, 0.767);
+    border-radius: 5px;
+}
+.service-text p {
+    width: 500px;
+    font-size: 18px;
+}
+.service{
+    margin-top: 100px;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+.box{
+    display: flex;
+    border: 1px solid;
+    border-radius: 15px;
+}
